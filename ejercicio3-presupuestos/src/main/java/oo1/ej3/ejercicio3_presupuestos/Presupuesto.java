@@ -17,13 +17,20 @@ public class Presupuesto {
 	public Presupuesto() {}
 	
 	// Preguntar por estos métodos requeridos en el test. Variables públicas o este tipo de setters?
-//	public void fecha(LocalDate fecha) {
-//		this.fecha = fecha;
-//	}
-//	
-//	public void cliente(String cliente) {
-//		this.cliente = cliente;
-//	}
+	// Post pregunta: en este caso la idea del test era ver qué pasa si encadenamos métodos: cada uno se aplica al resultado
+	// del anterior. Como consecuencia vemos que si apliqué el método fecha luego de instanciar un objeto de clase Presupuesto,
+	// al querer aplicar el método encadenado "cliente", voy a estar haciéndolo sobre el tipo "void" si únicamente implementé un setter
+	// que no devuelve nada. Por eso, para este ejercicio elijo devolver un objeto presupuesto en estos setters invocados desde el test original.
+	
+	public Presupuesto fecha(LocalDate fecha) {
+		this.fecha = fecha;
+		return this;
+	}
+	
+	public Presupuesto cliente(String cliente) {
+		this.cliente = cliente;
+		return this;
+	}
 	
 	public LocalDate getFecha() {
 		return fecha;

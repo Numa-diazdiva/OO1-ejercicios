@@ -13,18 +13,21 @@ public class Item {
 	
 	public Item() {}
 	
-	// Checar este tipo de setters
-//	public void detalle(String detalle) {
-//		this.detalle = detalle;
-//	}
-//	
-//	public void cantidad(int cantidad) {
-//		this.cantidad = cantidad;
-//	}
-//	
-//	public void costoUnitario(double costoUnitario) {
-//		this.costoUnitario = costoUnitario;
-//	}
+	// Checar este tipo de setters. Ver explicación en clase Presupuesto.
+	public Item detalle(String detalle) {
+		this.detalle = detalle;
+		return this;
+	}
+	
+	public Item cantidad(int cantidad) {
+		this.cantidad = cantidad;
+		return this;
+	}
+	
+	public Item costoUnitario(double costoUnitario) {
+		this.costoUnitario = costoUnitario;
+		return this;
+	}
 	
 	public String getDetalle() {
 		return this.detalle;
