@@ -2,7 +2,6 @@ package oo1.ej13.ejercicio13_ClienteDeCorreo;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Carpeta {
 	private String nombre;
@@ -31,11 +30,8 @@ public class Carpeta {
 	}
 	
 	public Email buscar(String texto) {
-		List<Email> mails = this.emails.stream().filter(email -> email.getTitulo().contains(texto)).collect(Collectors.toList());
-		if (mails.size() > 0) {
-			mails = this.emails.stream().filter(email -> email.getCuerpo().contains(texto)).collect(Collectors.toList());
-		}
-		return mails.get(0);
+		// findFirst devuelve un Optional que puede contener un objeto o nada si no encontró nada
+		return this.emails.stream().filter(email -> email.contieneTexto(texto)).findFirst().orElse(null);
 	}
 	
 	public void guardarEmail(Email email) {
@@ -43,14 +39,19 @@ public class Carpeta {
 	}
 	
 	public void borrarEmail(Email email) {
+		// Solución para buscarlo por título 
 		// List<Email> mails = this.emails.stream().filter(email -> email.getTitulo().contains(titulo)).collect(Collectors.toList());
-		emails.remove(email);
+		this.emails.remove(email);
+	}
+	
+	public boolean contieneEmail(Email mail) {
+		return this.emails.contains(mail);
 	}
 	
 	public int espacioOcupado() {
-		int espacio = emails.stream().mapToInt(email -> email.espacioOcupado()).sum();
-		return espacio;
+		return emails.stream().mapToInt(email -> email.espacioOcupado()).sum();
 	}
 	
+
 	
 }

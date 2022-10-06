@@ -11,7 +11,7 @@ public class CarpetaTest {
 	@BeforeEach
 	void setUp() {
 		carpeta = new Carpeta("Spam");
-		Email email = new Email("Ayuda","Ayuda123");
+		email = new Email("Ayuda","Ayuda123");
 		Archivo archivo1 = new Archivo("Arch1");
 		Archivo archivo2 = new Archivo("Arch2");
 		email.adjuntarArchivo(archivo1);
@@ -29,10 +29,32 @@ public class CarpetaTest {
 	@Test
 	void testEspacioOcupado() {
 		carpeta.guardarEmail(email);
-		Email mail2 = new Email("Hola", "1");
-		carpeta.guardarEmail(mail2);
-		assertEquals(30, carpeta.espacioOcupado());
+		 Email mail2 = new Email("Hola", "1");
+		 carpeta.guardarEmail(mail2);
+		assertEquals(28, carpeta.espacioOcupado());
 	}
 	
+	@Test
+	void testBuscar() {
+		carpeta.guardarEmail(email);
+		Email mail2 = new Email("Hola", "1");
+		carpeta.guardarEmail(mail2);
+		
+		// Cosas que existen
+		Email resultado = carpeta.buscar("Ayuda");
+		assertEquals(email, resultado);
+		resultado = carpeta.buscar("a");
+		assertEquals(email, resultado);
+		resultado = carpeta.buscar("Hola");
+		assertEquals(mail2, resultado);
+		
+		// Cosas que no existen
+		assertNull(carpeta.buscar("%"));
+		
+		// Que no haya nada
+		carpeta.borrarEmail(mail2);
+		carpeta.borrarEmail(email);
+		assertNull(carpeta.buscar("a"));
+	}
 	
 }

@@ -30,10 +30,21 @@ public class Email {
 		this.archivos.add(archivo);
 	}
 	
+	private int espacioArchivos() {
+		return this.archivos.stream().mapToInt(archivo -> archivo.tamaño()).sum();
+	}
+	
+	private int espacioTexto() {
+		return this.titulo.length() + this.cuerpo.length();
+	}
+	
 	public int espacioOcupado() {
-		int espacio = this.archivos.stream().mapToInt(archivo -> archivo.tamaño()).sum();
-		espacio += this.titulo.length() + this.cuerpo.length();
-		return espacio;
+		// Modularizar espacioArchivos() + espacioTexto()
+		return this.espacioArchivos() + this.espacioTexto();
+	}
+	
+	public boolean contieneTexto(String texto) {
+		return this.titulo.contains(texto) || this.cuerpo.contains(texto);
 	}
 	
 }
