@@ -63,7 +63,8 @@ public class ClienteDeCorreo {
 	 */
 	public Email buscar(String texto) {
 		// Revisar. Antes lo había implementado con findFirst y no anduvo bien.
-		return this.carpetas.stream().map(carpeta -> carpeta.buscar(texto)).collect(Collectors.toList()).get(0);
+		// Hay que filtrar los nulos antes con un filter.
+		return this.carpetas.stream().map(carpeta -> carpeta.buscar(texto)).filter(email -> email != null).findFirst().orElse(null);
 	}
 	
 	/*
