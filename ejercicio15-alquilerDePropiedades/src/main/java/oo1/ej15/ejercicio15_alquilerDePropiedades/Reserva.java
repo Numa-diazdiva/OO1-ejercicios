@@ -30,6 +30,15 @@ public class Reserva {
 		return this.periodo.overlaps(otroPeriodo);
 	}
 	
+	public int solapamientoEnDias(LocalDate from, LocalDate to) {
+		DateLapse otroPeriodo = new DateLapse(from, to);
+		DateLapse span = this.periodo.overlapSpan(otroPeriodo);
+		if (span != null) {
+			return span.sizeInDays();
+		}
+		return 0;
+	}
+	
 	public boolean estaOcurriendo() {
 		return this.periodo.includesDate(LocalDate.now());
 	}

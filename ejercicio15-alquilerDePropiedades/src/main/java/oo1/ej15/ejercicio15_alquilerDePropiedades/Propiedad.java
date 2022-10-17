@@ -73,15 +73,26 @@ public class Propiedad {
 		if(this.disponibleEnPeriodo(from, to)) {
 			Reserva reserva = new Reserva(usr, this, from, to);
 			this.reservas.add(reserva);
+			usr.agregarReserva(reserva);
 			return reserva;
 		}
 		return null;
 	}
 	
+	/**
+	 * Elimina la reserva solicitada si la ocupación aún no aconteció y si dicha reserva corresponde a esta propiedad 
+	 * @param reserva
+	 * @return true si la reserva se pudo eliminar. False si la reserva ya aconteció o no corresponde a esta propiedad.
+	 */
 	public boolean eliminarReserva(Reserva reserva) {
 		if (reserva.estaOcurriendo()) {
 			return false;
 		}
 		return this.reservas.remove(reserva);
 	}
+	
+	public double calcularIngresos(LocalDate from, LocalDate to) {
+		return this.reservas.stream().mapToInt(reserva -> reserva.solapamientoEnDias(from, to)).sum() * this.precioPorNoche;
+	}
+	
 }

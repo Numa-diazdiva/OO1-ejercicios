@@ -1,5 +1,6 @@
 package oo1.ej15.ejercicio15_alquilerDePropiedades;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,8 +47,24 @@ public class Usuario {
 		this.reservas.add(reserva);
 	}
 	
+	/* Revisar esto, habíamos charlado que esta relación estaba de más, pero
+	 * de otra manera se vuelve más enroscada la búsqueda. */
+	public List<Reserva> getReservas(){
+		return this.reservas;
+	}
+	
 	public void agregarPropiedad(Propiedad prop) {
 		this.propiedades.add(prop);
+	}
+	
+	/**
+	 * Calcula los ingresos que percibirá el usuario por el alquiler de sus propiedades entre las fechas especificadas-
+	 * @param from
+	 * @param to
+	 * @return montoTotalIngresos: real
+	 */
+	public double calcularIngresos(LocalDate from, LocalDate to) {
+		return this.propiedades.stream().mapToDouble(propiedad -> propiedad.calcularIngresos(from, to)).sum();
 	}
 	
 }

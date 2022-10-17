@@ -60,7 +60,32 @@ public class DateLapse {
 	 * @return true si las fechas se solapa. False si las fechas no se solapan.
 	 */
 	public boolean overlaps(DateLapse anotherDateLapse) {
-		return this.includesDate(anotherDateLapse.getTo()) || this.includesDate(anotherDateLapse.getFrom());
+		// Checar el último caso (other contiene a this)
+		return this.includesDate(anotherDateLapse.getTo()) || this.includesDate(anotherDateLapse.getFrom()) || anotherDateLapse.includesDate(this.from);
+	}
+	
+	/**
+	 * Devuelve un objeto DateLapse que representa el solapamiento entre éste período temporal y otro período enviado por parámetro.
+	 * @param anotherDateLapse
+	 * @return DateLape object if there is overlaping, null if not.
+	 */
+	public DateLapse overlapSpan(DateLapse anotherDateLapse) {
+		if (this.overlaps(anotherDateLapse)) {
+			DateLapse overlapSpan;
+			if (this.includesDate(anotherDateLapse.getFrom())) {
+				if (this.includesDate(anotherDateLapse.getTo())) {
+					overlapSpan = anotherDateLapse;
+				} else {
+					overlapSpan = new DateLapse(anotherDateLapse.getFrom(), this.getTo());
+				}
+			} else if(this.includesDate(anotherDateLapse.getTo())) {
+				overlapSpan = new DateLapse(this.getFrom(), anotherDateLapse.getTo());
+			} else {
+				overlapSpan = this;
+			}
+			return overlapSpan;
+		}
+		return null;
 	}
 	
 	
