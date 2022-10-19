@@ -91,6 +91,12 @@ public class Propiedad {
 		return this.reservas.remove(reserva);
 	}
 	
+	/**
+	 * Calcula el total de ingresos de la propiedad en el período de tiempo solicitado. Se consideran los días completos (por noche) que cumple el período de reserva.
+	 * @param from
+	 * @param to
+	 * @return total de ingresos, 0 si no los hay.
+	 */
 	public double calcularIngresos(LocalDate from, LocalDate to) {
 		return this.reservas.stream().mapToInt(reserva -> reserva.solapamientoEnDias(from, to)).sum() * this.precioPorNoche;
 	}

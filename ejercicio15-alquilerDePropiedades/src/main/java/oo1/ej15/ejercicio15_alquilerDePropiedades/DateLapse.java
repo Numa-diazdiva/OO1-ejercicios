@@ -69,6 +69,7 @@ public class DateLapse {
 	 * @param anotherDateLapse
 	 * @return DateLape object if there is overlaping, null if not.
 	 */
+	//Incluir por solapamiento y listo
 	public DateLapse overlapSpan(DateLapse anotherDateLapse) {
 		if (this.overlaps(anotherDateLapse)) {
 			DateLapse overlapSpan;
