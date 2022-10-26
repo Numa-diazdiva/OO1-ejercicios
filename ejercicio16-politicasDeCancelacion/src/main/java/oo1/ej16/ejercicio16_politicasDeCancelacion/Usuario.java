@@ -1,4 +1,4 @@
-package oo1.ej16.ej16_politicasDeCancelacion;
+package main.java.oo1.ej16.ejercicio16_politicasDeCancelacion;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

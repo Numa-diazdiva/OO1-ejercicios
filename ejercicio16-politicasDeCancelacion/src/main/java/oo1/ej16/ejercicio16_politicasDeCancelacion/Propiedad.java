@@ -1,4 +1,4 @@
-package oo1.ej16.ej16_politicasDeCancelacion;
+package main.java.oo1.ej16.ejercicio16_politicasDeCancelacion;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -10,14 +10,16 @@ public class Propiedad {
 	private double precioPorNoche;
 	private Usuario propietario;
 	private List<Reserva> reservas;
+	private PoliticaDeCancelacion politicaDeCancelacion;
 	
-	public Propiedad(String nombre, String direccion, double precioPorNoche, Usuario propietario) {
+	public Propiedad(String nombre, String direccion, double precioPorNoche, Usuario propietario, PoliticaDeCancelacion politica) {
 		this.nombre = nombre;
 		this.direccion = direccion;
 		this.precioPorNoche = precioPorNoche;
 		this.propietario = propietario;
 		this.descripcion = "sin descripción";
-		this.reservas = new ArrayList<Reserva>();	
+		this.reservas = new ArrayList<Reserva>();
+		this.politicaDeCancelacion = politica;
 	}
 	
 	public String getNombre() {
@@ -50,6 +52,14 @@ public class Propiedad {
 
 	public List<Reserva> getReservas() {
 		return reservas;
+	}
+	
+	public PoliticaDeCancelacion getPoliticaDeCancelacion() {
+		return this.politicaDeCancelacion;
+	}
+	
+	public void setPoliticaDeCancelacion(PoliticaDeCancelacion politica) {
+		this.politicaDeCancelacion = politica;
 	}
 	
 	/**
@@ -99,6 +109,16 @@ public class Propiedad {
 	 */
 	public double calcularIngresos(LocalDate from, LocalDate to) {
 		return this.reservas.stream().mapToInt(reserva -> reserva.solapamientoEnDias(from, to)).sum() * this.precioPorNoche;
+	}
+	
+	/**
+	 * Calcula el monto a reembolsar por cancelación en base a la política de cancelación de la propiedad.
+	 * @param reserva
+	 * @param fechaDeCancelacion
+	 * @return monto a reembolsar (real).
+	 */
+	public double calcularReembolso(Reserva reserva, LocalDate fechaDeCancelacion) {
+		return this.politicaDeCancelacion.montoAReembolsar(this.precioPorNoche, reserva.tiempoRestanteParaIniciar(fechaDeCancelacion)); 
 	}
 	
 }

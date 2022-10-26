@@ -3,10 +3,10 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>oo1.ej16</groupId>
-  <artifactId>ej16-politicasDeCancelacion</artifactId>
+  <artifactId>ejercicio16-politicasDeCancelacion</artifactId>
   <version>0.0.1-SNAPSHOT</version>
 
-  <name>ej16-politicasDeCancelacion</name>
+  <name>ejercicio16-politicasDeCancelacion</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

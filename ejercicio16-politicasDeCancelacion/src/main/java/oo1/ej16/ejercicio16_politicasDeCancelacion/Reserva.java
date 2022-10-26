@@ -1,4 +1,4 @@
-package oo1.ej16.ej16_politicasDeCancelacion;
+package main.java.oo1.ej16.ejercicio16_politicasDeCancelacion;
 
 import java.time.LocalDate;
 
@@ -41,6 +41,19 @@ public class Reserva {
 	
 	public boolean estaOcurriendo() {
 		return this.periodo.includesDate(LocalDate.now());
+	}
+
+	/**
+	 * Calcula el tiempo restante para el inicio de la reserva.
+	 * @param consulta
+	 * @return tiempo restante en días (int).
+	 */
+	public int tiempoRestanteParaIniciar(LocalDate consulta) {
+		int tiempoRestante = consulta.compareTo(this.periodo.getTo());
+		if (tiempoRestante > 0) {
+			return tiempoRestante;
+		}
+		return 0;
 	}
 	
 }
