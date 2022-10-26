@@ -17,5 +17,4 @@ public class PoliticaModerada implements PoliticaDeCancelacion{
 		}
 		return 0;
 	}
-	
 }
