@@ -112,16 +112,34 @@ public class PropiedadTest {
 	}
 
 	@Test 
-	void testCancelacionModerada() {
+	void testCancelacionModeradaNula() {
 		Reserva reserva2 = this.reservar();
 		this.prop1.setPoliticaDeCancelacion(new PoliticaModerada());
 		LocalDate fechaCancelacion = LocalDate.of(2022, 11, 30);
 		assertEquals(0, this.prop1.calcularReembolso(reserva2, fechaCancelacion));
-		fechaCancelacion = LocalDate.of(2022, 11, 27);
-//		assertEquals(5000, this.prop1.calcularReembolso(reserva2, fechaCancelacion));
-		fechaCancelacion = LocalDate.of(2022, 11, 10);
+	}
+	
+	void testCancelacionModeradaMitad() {
+		Reserva reserva2 = this.reservar();
+		this.prop1.setPoliticaDeCancelacion(new PoliticaModerada());
+		LocalDate fechaCancelacion = LocalDate.of(2022, 11, 26);
+		assertEquals(5000, this.prop1.calcularReembolso(reserva2, fechaCancelacion));
+	}
+	
+	void testCancelacionModeradaTotal() {
+		Reserva reserva2 = this.reservar();
+		this.prop1.setPoliticaDeCancelacion(new PoliticaModerada());
+		LocalDate fechaCancelacion = LocalDate.of(2022, 11, 20);
 		assertEquals(10000, this.prop1.calcularReembolso(reserva2, fechaCancelacion));
-		
+	}
+	
+	void testCancelacionFlexible() {
+		Reserva reserva2 = this.reservar();
+		this.prop1.setPoliticaDeCancelacion(new PoliticaModerada());
+		LocalDate fechaCancelacion = LocalDate.of(2022, 11, 29);
+		assertEquals(10000, this.prop1.calcularReembolso(reserva2, fechaCancelacion));
+		fechaCancelacion = LocalDate.of(2022, 11, 2);
+		assertEquals(0, this.prop1.calcularReembolso(reserva2, fechaCancelacion));
 	}
 	
 	

@@ -49,9 +49,9 @@ public class Reserva {
 	 * @return tiempo restante en días (int).
 	 */
 	public int tiempoRestanteParaIniciar(LocalDate consulta) {
-		int tiempoRestante = consulta.compareTo(this.periodo.getTo());
-		if (tiempoRestante > 0) {
-			return tiempoRestante;
+		int diasRestantes =  this.periodo.getFrom().compareTo(consulta);
+		if (diasRestantes > 0) {
+			return diasRestantes;
 		}
 		return 0;
 	}
