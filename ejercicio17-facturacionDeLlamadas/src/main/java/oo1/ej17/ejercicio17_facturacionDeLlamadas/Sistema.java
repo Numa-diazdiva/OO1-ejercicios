@@ -16,9 +16,13 @@ public class Sistema {
 		this.numerosDisponibles.add(new NroTelefono(numero));
 	}
 	
-	public void agregarClientePersonaFisica(String nombre, String direccion, int dni) {
-		Cliente cliente = null;
-		this.clientes.add(null);
+	public boolean agregarClientePersonaFisica(Cliente cliente) {
+		if(!this.numerosDisponibles.isEmpty()) {
+			cliente.setNumeroDeTelefono(this.numerosDisponibles.remove(0));
+			this.clientes.add(cliente);
+			return true;
+		}
+		return false;
 	}
 	
 	
