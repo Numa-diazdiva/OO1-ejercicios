@@ -38,6 +38,10 @@ public class Empleado {
 		this.apellido = apellido;
 	}
 
+	public void setFechaAlta(LocalDate other) {
+		this.fechaAlta = other;
+	}
+	
 	public int getCuil() {
 		return cuil;
 	}
@@ -50,7 +54,7 @@ public class Empleado {
 		return fechaAlta;
 	}
 
-	public boolean isTieneConyugue() {
+	public boolean getTieneConyugue() {
 		return tieneConyugue;
 	}
 
@@ -58,7 +62,7 @@ public class Empleado {
 		this.tieneConyugue = tieneConyugue;
 	}
 
-	public boolean isTieneHijxs() {
+	public boolean getTieneHijxs() {
 		return tieneHijxs;
 	}
 
@@ -66,14 +70,44 @@ public class Empleado {
 		this.tieneHijxs = tieneHijxs;
 	}
 	
+	public List<Contrato> getContratos() {
+		return contratos;
+	}
 	
-	public boolean estaActivo() {
+	public int getAntiguedad() {
+		return LocalDate.now().compareTo(this.getFechaAlta());
+	}
+	
+	public boolean agregarContrato(Contrato contrato) {
+		if(this.estaActivo()) {
+			return false;
+		}
+		contratos.add(contrato);
 		return true;
 	}
 	
-	public Recibo generarReciboCobro() {
+	public boolean estaActivo() {
+		if (this.ultimoContrato() != null) {
+			return this.ultimoContrato().estaActivo();
+		}
+		return false;
+	}
+	
+	public Contrato ultimoContrato() {
+		return this.contratos.stream().max((contrato1, contrato2) -> contrato1.getFechaInicio().compareTo(contrato2.getFechaInicio())).orElse(null);
+	}
+	
+	public Recibo generarReciboCobro(Antiguedades antiguedades) {
+		if(this.estaActivo()) {
+			double sueldo = this.ultimoContrato().calcularMonto();
+			sueldo += antiguedades.calcularMontoAntiguedad(this.getAntiguedad(), sueldo);
+			return new Recibo(this.nombre, this.apellido, this.cuil, fechaAlta, fechaAlta, sueldo);
+		}
+		
 		return null;
 	}
+
+
 	
 	
 }

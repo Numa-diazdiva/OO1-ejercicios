@@ -5,9 +5,11 @@ import java.util.List;
 
 public class Sistema {
 	private List<Empleado> empleados;
+	private Antiguedades antiguedades;
 	
 	public Sistema() {
 		empleados = new ArrayList<Empleado>();
+		antiguedades = new Antiguedades();
 	}
 	
 	public boolean darDeAltaEmpleado(Empleado empleado) {
@@ -31,7 +33,7 @@ public class Sistema {
 	}
 	
 	public List<Recibo> generarRecibosDeCobro(){
-		return empleados.stream().map(e -> e.generarReciboCobro().toList);
+		return empleados.stream().map(e -> e.generarReciboCobro(antiguedades)).toList();
 	}
 	
 }
